@@ -40,7 +40,7 @@ func NewAlertmanagerProxy(alertmanager *alertmanager.Alertmanager) (*httputil.Re
 			req.Host = upstreamURL.Host
 
 			if upstreamURL.User != nil {
-				username = upstreamURL.User.Username()
+				username := upstreamURL.User.Username()
 				password, _ := upstreamURL.User.Password()
 				req.SetBasicAuth(username, password)
 			}
