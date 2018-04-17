@@ -39,6 +39,12 @@ func NewAlertmanagerProxy(alertmanager *alertmanager.Alertmanager) (*httputil.Re
 			// set hostname of proxied target
 			req.Host = upstreamURL.Host
 
+			if upstreamURL.User != null {
+				username, _ := upstreamURL.User.Username()
+				password, _ := upstreamURL.User.Password()
+				reg.SetBasicAuth(username, password)
+			}
+
 			log.Debugf("[%s] Proxy request for %s", alertmanager.Name, req.URL.Path)
 		},
 		Transport: alertmanager.HTTPTransport,
